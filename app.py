@@ -3,14 +3,16 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 import jwt
 import datetime
+import os
 
 app = Flask(__name__)
-CORS(app)  # Allows requests from frontend
+CORS(app)  # Allows requests from frontend (you can restrict origins for production)
 bcrypt = Bcrypt(app)
 
-app.config['SECRET_KEY'] = 'supersecretkey123'  # Replace with env var for production
+# Use environment variable for secret key in production
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'defaultsecretkey')
 
-# In-memory user store
+# In-memory user store (replace with database in production)
 users = {}
 
 @app.route('/')
@@ -29,6 +31,10 @@ def signup():
 
     if email in users:
         return jsonify({'error': 'Email already exists'}), 409
+
+    # Add basic password validation (length and complexity)
+    if len(password) < 6:
+        return jsonify({'error': 'Password must be at least 6 characters long'}), 400
 
     hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
     users[email] = {'name': name, 'email': email, 'password': hashed_pw}
@@ -75,4 +81,4 @@ def verify_token():
         return jsonify({'error': 'Invalid token'}), 401
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

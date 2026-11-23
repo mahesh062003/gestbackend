@@ -21,8 +21,7 @@ longer exists.
 
 **Accounts are held in an in-memory dict and do not survive a restart.** This
 is a demonstration auth layer, not a production one — `users = {}` needs
-replacing with a real database before it is relied upon. Stated here rather
-than left for a reader to discover in the source.
+replacing with a real database before it is relied upon.
 
 ## Running it
 

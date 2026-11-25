@@ -41,3 +41,12 @@ the app starts locally; tokens signed with it could be forged by anyone.
 ## Stack
 
 Python · Flask · Flask-Bcrypt · PyJWT · Flask-CORS · gunicorn
+
+---
+
+## Use
+
+© 2026 Mahesh Veeraiah R. All rights reserved.
+
+Published for review and assessment. Not licensed for reuse, redistribution or
+modification — please get in touch about any other use.
